@@ -1,0 +1,112 @@
+/* 
+    Document   : social
+    Created on : 16-ott-2013, 14.24.08
+    Author     : Paolo Cifariello <paolocifa at gmail.com>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.loginTable {
+    width: 100%;
+    height: 100%;
+}
+
+#loginPopup {
+    border-radius: 20px;
+}
+
+#customBtn {
+    cursor: pointer;
+    display: inline-block;
+    background: #dd4b39;
+    color: white;
+    width: 130px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+#customBtn:hover {
+    background: #e74b37;
+    cursor: pointer;
+}
+span.label {
+    font-weight: bold;
+}
+span.icon {
+    background: url('/dotPipe/img/btn_red_32.png') transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-right: #bb3f30 1px solid;
+}
+span.buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: bold;
+    /* Use the Roboto font that is loaded in the <head> */
+    font-family: 'Roboto',arial,sans-serif;
+    margin: 0 18px;
+}
+
+.instagramLogin {
+    color: #FFF;
+    width: 128px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 3px, rgba(255, 255, 255, 0.0470588) 1px 0px 0px inset, rgba(255, 255, 255, 0.0470588) -1px 0px 0px inset, rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset;
+    font-size: 16px;
+    text-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 0px;
+    border: 1px solid #1c5380;
+    background-color: #6f97b6;
+    background-image: -webkit-linear-gradient(top, #6f97b6, #3f729b);
+    background-position: 50% 50%;
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    font-weight: bold;
+    line-height: 1em;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    display: inline-block;
+}
+
+.instagramLoginImage {
+    float: left;
+    left: 0px;
+    top: 0px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url(/dotPipe/img/shared-assets.png) 4px -196px no-repeat;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+.instagramAccedi {
+    padding: 5px 6px 4px 14px;
+    position: relative;
+    top: 13px;
+    right: 4px;
+}
+
+.yahooLogin {
+    width: 130px;
+    background-color: #6E329D;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #522675;
+    font-size: 13px;
+    color: #ffffff;
+    height: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.22em;
+    padding: 0 35px;    
+}
+
+.buttomColumn {
+    float: right;
+    padding: 18px 40px;
+}

@@ -1,0 +1,164 @@
+#chooseResult {
+    position:fixed;
+    height: 58px;
+    border-bottom: 2px solid #000;
+    text-align: center;
+    background: #ebebeb;
+    left: 0;
+    top: 0;
+    right: 23px;
+}
+
+.scelta {
+    cursor: pointer;
+    width: 100px;
+    font-size: 16px;
+}
+
+.scelta:hover {
+    font-weight: bold;
+    border-top-color: #427FED;
+}
+
+.backToPipe {
+    left: 4px;
+    top: 4px;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-image: url('../img/arrow.png');
+    background-color: #ebebeb;
+    background-size: cover;
+}
+
+#scelte {
+    width: 400px; 
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    display: flex;
+}
+
+#resultsContainer {
+    width: 100%
+}
+
+#resultList {
+    margin-top: 80px;
+    width: 866px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+
+.userResultElement {
+    height: 180px;
+    width: 160px;
+    background: white;
+    margin-left: 8px;
+    margin-top: 8px;
+    display: inline-block;
+    cursor: pointer;
+    border: solid 1px lightgray;
+}
+
+.eventResultElement {
+    min-height: 100px;
+    width: 100%;
+    background: white;
+    margin-left: 8px;
+    margin-top: 8px;
+    display: inline-block;
+    cursor: pointer;
+    border: solid 1px lightgray;   
+}
+
+.mediaResultElement {
+    height: 180px;
+    width: 200px;
+    background: white;
+    margin-left: 8px;
+    margin-top: 8px;
+    display: inline-block;
+    cursor: pointer;
+    border: solid 1px lightgray;
+}
+
+.imageResult {
+    margin-left: 4px;
+    margin-top: 5px;
+    width: 150px;
+    height: 140px;
+    border: solid 1px black;
+    
+}
+
+.resultName {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    margin-top: 6px;
+}
+
+.logo {
+    width: 25px;
+    height:20px;
+    margin-left: 3px;
+    margin-top: 4px;
+}
+
+.logomedia {
+    width: 25px;
+    height:25px;
+    margin-left: 6px;
+    margin-top: 2px;
+}
+
+.resultEventName {
+    margin-left: 20px;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 22px;
+    line-height: 24px;
+    text-align: start;
+}
+
+.resultEventSub {
+    margin-left: 20px;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 16px;
+    text-align: start;
+}
+
+.feedResultElement {
+    min-height: 100px;
+    width: 75%;
+    background: white;
+    margin-left: 8px;
+    margin-top: 8px;
+    display: inline-block;
+    cursor: pointer;
+    border: solid 1px lightgray;
+}
+
+.resultTitleFeed {
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 12px;
+    text-align: start;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.resultContentFeed {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 16px;
+    text-align: start;
+    margin-top: 12px;
+    font-size: 15px;
+}

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <head>
+        <title>dotPipe</title>
+        <!-- Stili -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/toolbox.css">
+        <link rel="stylesheet" type="text/css" href="css/social.css">
+        <link rel="stylesheet" type="text/css" href="css/properties.css">
+        <link rel="stylesheet" type="text/css" href="css/result.css">
+        <link rel="stylesheet" type="text/css" href="css/loading.css">
+        <!-- Librerie -->
+        <script type="application/javascript" src="js/lib/FileSaver.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">google.load("feeds", "1");</script>
+        <script type="text/javascript" src="js/lib/jscolor/jscolor.js"></script>
+        <!-- Utilità -->
+        <script type="application/javascript" src="js/util/utilvar.js"></script>
+        <script type="application/javascript" src="js/util/runpipe.js"></script>
+        <script type="application/javascript" src="js/util/prototype.js"></script>
+        <script type="application/javascript" src="js/util/utilfun.js"></script>
+        <script type="application/javascript" src="js/obj/Objects.js"></script>
+        <!-- Social API -->
+        <script type="application/javascript" src="js/social/facebook.js"></script>
+        <script type="application/javascript" src="js/social/google.js"></script>
+        <script type="application/javascript" src="js/social/instagram.js"></script>
+        <script type="application/javascript" src="js/social/feedrss.js"></script>
+        <!-- Configurazione -->
+        <script type="application/javascript" src="js/config/moduli.js"></script>
+        <!-- Progetto dotPipe -->
+        <script type="application/javascript" src="js/event/tools_menu_event.js"></script>
+        <script type="application/javascript" defer src="js/event/editor_event.js"></script>
+        <script type="application/javascript" defer src="js/obj/SubMenu.js"></script>
+        <script type="application/javascript" defer src="js/obj/PipeElements.js"></script>
+        <script type="application/javascript" defer src="js/event/keyboard_input.js"></script>
+        <!-- Inizializzazione -->
+        <script type="application/javascript" defer src="js/init.js"></script>
+    </head>
+    
+    <body onmouseup="DP.util.stopMoving();">
+        <div id="chooseResult" style="display: none">
+            <div class="scelta backToPipe" onclick="DP.util.hideResults()"></div>
+            <div id='scelte'>
+                <div id="sceltauser" class="scelta" onclick="DP.util.showElements('user')">Users</div>
+                <div id="sceltaevent" class="scelta" onclick="DP.util.showElements('event')">Events</div>
+                <div id="sceltamedia" class="scelta" onclick="DP.util.showElements('media')">Media</div>
+                <div id="sceltafeed" class="scelta" onclick="DP.util.showElements('feed')">Feed</div>
+            </div>
+        </div>
+        <div id="resultsContainer" style="display: none">
+            <div id="resultList"></div>
+        </div>
+        
+        <div id="loadingAnimation" style="display: none; width: 100%; height: 100%;">
+            <div style="margin-left: auto; margin-right: auto; margin-top: 300px;" class="windows8">
+                <div class="wBall" id="wBall_1">
+                    <div class="wInnerBall">
+                    </div>
+                </div>
+                <div class="wBall" id="wBall_2">
+                    <div class="wInnerBall">
+                    </div>
+                </div>
+                <div class="wBall" id="wBall_3">
+                    <div class="wInnerBall">
+                    </div>
+                </div>
+                <div class="wBall" id="wBall_4">
+                    <div class="wInnerBall">
+                    </div>
+                </div>
+                <div class="wBall" id="wBall_5">
+                    <div class="wInnerBall">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="fb-root"></div>
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId: '531313350287146', // App ID
+                    channelUrl: '//pipemaker.altervista.org/channel.html', // Channel File
+                    status: true, // check login status
+                    cookie: true, // enable cookies to allow the server to access the session
+                    xfbml: true  // parse XFBML
+                });
+                
+                // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
+                // for any authentication related change, such as login, logout or session refresh. This means that
+                // whenever someone who was previously logged out tries to log in again, the correct case below 
+                // will be handled. 
+                FB.Event.subscribe('auth.authResponseChange', function(response) {
+                    // Here we specify what we do with the response anytime this event occurs. 
+                    if (response.status === 'connected') {
+                        // The response object is returned with a status field that lets the app know the current
+                        // login status of the person. In this case, we're handling the situation where they 
+                        // have logged in to the app.
+                        facebookapi.setToken(FB.getAccessToken());
+                        
+                        var fbLogin = document.getElementById('facebookLoginButton');
+                        if(fbLogin)
+                            fbLogin.style.display = 'none';
+                        
+                        /* Se l'attivazione del modulo ha successo aggiungo un checkmark */
+                        if (DP.util.activateModule('facebook'))
+                            DP.util.addCheckmark(fbLogin.parentNode);
+                    } else if (response.status === 'not_authorized') {
+                        // In this case, the person is logged into Facebook, but not into the app, so we call
+                        // FB.login() to prompt them to do so. 
+                        // In real-life usage, you wouldn't want to immediately prompt someone to login 
+                        // like this, for two reasons:
+                        // (1) JavaScript created popup windows are blocked by most browsers unless they 
+                        // result from direct interaction from people using the app (such as a mouse click)
+                        // (2) it is a bad experience to be continually prompted to login upon page load.
+                        FB.login();
+                    } else {
+                        // In this case, the person is not logged into Facebook, so we call the login() 
+                        // function to prompt them to do so. Note that at this stage there is no indication
+                        // of whether they are logged into the app. If they aren't then they'll see the Login
+                        // dialog right after they log in to Facebook. 
+                        // The same caveats as above apply to the FB.login() call here.
+                        FB.login();
+                    }
+                });
+            };
+            
+            // Load the SDK asynchronously
+            (function(d) {
+                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement('script');
+                js.id = id;
+                js.async = true;
+                js.src = "//connect.facebook.net/en_US/all.js";
+                ref.parentNode.insertBefore(js, ref);
+            }(document));
+        </script>
+        
+        <div id="blackScreen">
+            <div id="loginPopup">
+                <table class='loginTable'>
+                    <thead>
+                        <tr>
+                            <td colspan="2">
+                                <p style="font-size:16px; margin-left: 15px">Choose the services to be included:</p>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 14px; color: black;">
+                        <tr>
+                            <td>
+                                <p style="margin-left: 15px">Google+</p>
+                            </td>
+                            
+                            <td class='buttomColumn'>
+                                <div id="customBtn" class="customGPlusSignIn">
+                                    <span class="icon"></span>
+                                    <span class="buttonText">Google</span>
+                                </div>
+                            </td>
+                            <tr>
+                                
+                                <td>
+                                    <p style="margin-left: 15px">Facebook</p>
+                                </td>
+                                <td class='buttomColumn'>
+                                    <div>
+                                        <div id='facebookLoginButton' 
+                                             size='xlarge' 
+                                             style="cursor: pointer" 
+                                             class="fb-login-button"
+                                             scope='user_about_me, friends_about_me, 
+                                                    user_activities, friends_activities, 
+                                                    user_birthday, friends_birthday, 
+                                                    user_education_history, friends_education_history, 
+                                                    user_hometown, friends_hometown, 
+                                                    user_photos, friends_photos'>
+                                        </div>
+                                    </div>
+                                </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p style="margin-left: 15px;">Instagram</p>
+                            </td>
+                            <td class='buttomColumn'>
+                                <a id="instagramLoginButton" 
+                                   onclick="instagramapi.tryLogin();" 
+                                   class="instagramLogin">
+                                    <i class="instagramLoginImage"></i>
+                                    <span class="instagramAccedi">Log in</span>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr style="display: none">
+                            <td>
+                                Flickr
+                            </td>
+                            <td class='buttomColumn'>
+                                <button class="yahooLogin">
+                                    Entra
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                    <tfoot>
+                        <tr style='height: 76px'>
+                            <td colspan="2" style="width: 100%;">
+                                <div style="width: 100%; height: 100%; text-align: center;">
+                                    <button class="confirmButton" onclick='createMenu();'>Avanti</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+        </div>
+        
+        <table  id="mainTable" class="tableContent" style="display: none"
+               ondragstart="return false;" ondrop="return false;" onmousemove="return false;">
+            <thead>
+                <tr>
+                    <td colspan="2">
+                        <div class="topBar">
+                            <div class="inputBar">
+                                <div class="leftButtons">
+                                    <div id="newPipeButton" class="button">
+                                        New Pipe
+                                    </div>
+                                    <div class="button" style="width: 70px;
+                                                               padding: 0;">
+                                        <div style="padding: 0;
+                                                    width: 70px;
+                                                    background-image: url('img/load.png');
+                                                    background-position-y: -1px;
+                                                    background-size: cover;
+                                                    cursor: default;">
+                                            <input style="opacity: 0;
+                                                          margin: 0;
+                                                          width: 66px;"
+                                                   type="file" id="files" name="files[]">
+                                        </div>
+                                    </div>
+                                    <div id="saveButton" class="button" >
+                                        Save
+                                    </div>
+                                </div>
+                                <div class="rightButtons">
+                                    <div id="runButton" class="button">
+                                        Run Pipe
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="toolsMenuColumn">
+                        <div id="toolsMenu"></div>
+                    </td>
+                    <td>
+                        <div onmouseup="DP.util.stopMoving();" 
+                             onmousedown="if(event.button === 0) {DP.movingView = true; DP.util.moveView('up', true);}" 
+                             style="position: absolute;
+                                    z-index: 10000000;
+                                    margin-bottom: auto;
+                                    top: 52px;
+                                    left: 52%;
+                                    cursor: pointer;">
+                            <img src="img/up.png" width="25" height="25">
+                        </div>
+                        <div onmouseup="DP.util.stopMoving();" 
+                             onmousedown="if(event.button === 0) {DP.movingView = true; DP.util.moveView('right', true);}" 
+                             style="position: absolute;
+                                    z-index: 10000000;
+                                    margin-bottom: auto;
+                                    top: 56%;
+                                    right: 6px;
+                                    cursor: pointer;">
+                            <img src="img/right.png" width="25" height="25">
+                        </div>
+                        <div onmouseup="DP.util.stopMoving();" 
+                             onmousedown="if(event.button === 0) {DP.movingView = true; DP.util.moveView('down', true);}" 
+                             style="position: absolute;
+                                    z-index: 10000000;
+                                    margin-bottom: auto;
+                                    bottom: -2px;
+                                    left: 52%;
+                                    cursor: pointer;">
+                            <img src="img/down.png" width="25" height="25">
+                        </div>
+                        <div onmouseup="DP.util.stopMoving();" 
+                             onmousedown="if(event.button === 0) {DP.movingView = true; DP.util.moveView('left', true);}" 
+                             style="position: absolute;
+                                    z-index: 10000000;
+                                    margin-bottom: auto;
+                                    top: 56%;
+                                    left: 172px;
+                                    cursor: pointer;">
+                            <img src="img/left.png" width="25" height="25">
+                        </div>
+                        <div id="pipeEditor">
+                            <svg id="pipeLinks" />
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div id="propertiesContainer" style="display: none;" onclick="event.stopPropagation();">
+            
+            <!-- Menu Facebook -->
+            
+            <div id='facebook' style='display: none;' class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input id="facebookradio1" type="radio" name="radios" value="all">
+                                <label for="facebookradio1" class="facebook_leftRadio">Users</label>
+                                <input id="facebookradio2" type="radio" name="radios" value="false">
+                                <label for="facebookradio2" class="facebook_rightRadio">Events</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label"> 
+                                        <label for="facebooktext1"> 
+                                            Query:
+                                        </label>
+                                    </div> 
+                                    <input name="name" type="text" id="facebooktext1" size="30" value=""> 
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Menu Google+ -->
+            
+            <div id='google+' style="display: none;" class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input id="googleradio1" type="radio" name="radios" value="all">
+                                <label for="googleradio1" class="google_leftRadio">Users</label>
+                                <input id="googleradio2" type="radio" name="radios" value="false">
+                                <label for="googleradio2" class="google_rightRadio">Events</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label"> 
+                                        <label for="googletext1"> 
+                                            Query:
+                                        </label>
+                                    </div> 
+                                    <input name="name" type="text" id="googletext1" size="30" value=""> 
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);"  class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>$
+            </div>
+            
+            <!-- Menu Instagram -->
+            
+            <div id='instagram' style="display: none;" class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input id="instagramradio1" type="radio" name="radios" value="all">
+                                <label for="instagramradio1" class="instagram_leftRadio">Users</label>
+                                <input id="instagramradio2" type="radio" name="radios" value="false">
+                                <label for="instagramradio2" class="instagram_rightRadio">Media</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label"> 
+                                        <label for="instagramtext1"> 
+                                            Query:
+                                        </label>
+                                    </div> 
+                                    <input name="name" type="text" id="instagramtext1" size="30" value=""> 
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);"  class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Menu Feed RSS -->
+            
+            <div id='feedrss' style='display: none;' class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label"> 
+                                        <label for="feedrsstext1"> 
+                                            URL feed:
+                                        </label>
+                                    </div> 
+                                    <input name="name" style="width: 250px;" type="text" id="feedrsstext1" size="30" value=""> 
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Menu Head operator -->
+            
+            <div id='head' style='display: none;' class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label" style="width: 160px !important;"> 
+                                        <label for="headtext1"> 
+                                            Number of elements:
+                                        </label>
+                                    </div> 
+                                    <input name="name" style="width: 80px;" 
+                                           type="text" id="headtext1" size="30" 
+                                           value="" onkeypress="DP.util.validate(event,'int')"> 
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Menu Tail operator -->
+            
+            <div id='tail' style='display: none;' class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label" style="width: 160px !important;"> 
+                                        <label for="tailtext1"> 
+                                            Number of elements:
+                                        </label>
+                                    </div> 
+                                    <input name="name" style="width: 80px;" 
+                                           type="text" id="tailtext1" size="30" 
+                                           value="" onkeypress="DP.util.validate(event,'int')"> 
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            <!-- Menu Sort operator -->
+            
+            <div id='sort' style='display: none;' class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label" style="width: 160px !important;"> 
+                                        <label for="sorttext1"> 
+                                            Sort by:
+                                        </label>
+                                    </div> 
+                                    <select id='sortselect' class='sortselector' 
+                                            style="border-radius: 0 1px 1px 0; 
+                                                   margin-right: 0px;"></select>
+                                    <select id='sortselectOrder' class='sortselector'>
+                                        <option value="ascending">ascending</option>
+                                        <option value="descending">descending</option>
+                                    </select>
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Menu Unique -->
+            
+            <div id='unique' style='display: none;' class='properties'>
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="input"> 
+                                    <div class="input_label" style="width: 160px !important;"> 
+                                        <label for="uniquetext1"> 
+                                            Select property:
+                                        </label>
+                                    </div> 
+                                    <select id="uniqueselect" class='uniqueselector'></select>
+                                    
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Menu Filter -->
+            
+            <div id='filter' style="display: none;" class="properties">
+                <table id="proptable" style="display: table;">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="display: -webkit-inline-box">
+                            <td style="width: 492px;">
+                                <div style="margin-top: 16px;
+                                            font-size: 13px;">
+                                    <select id="filtertypeselect" class='uniqueselector filterselector'>
+                                        <option value="block">Block</option>
+                                        <option value="permit">Permit</option>
+                                    </select>
+                                    
+                                    items that match
+                                    
+                                    <select id="filterwhatselect" class='uniqueselector filterselector'
+                                            style="margin-left: 2px;
+                                                   width: 60px;">
+                                        <option value="any">any</option>
+                                        <option value="all">all</option>
+                                    </select>
+                                    
+                                    of the following:
+                                </div>
+                                
+                                <div style="text-align: start;
+                                            margin-left: 30px;
+                                            margin-bottom: 10px;">
+                                    <img src="img/plus.png" width="20px" height="20px" onclick="DP.util.addFilter()"
+                                         style="cursor: pointer;
+                                                margin-left: 22px;">
+                                </div>
+                                
+                                <div id='filterContainer'>
+                                    <div id='innerfilter1' class="input" style="margin-bottom: 10px;
+                                                                                display: -webkit-inline-box;">  
+                                        <div style="margin-right: 14px;">
+                                            <img src="img/minus.png" width="20px" height="20px" style="margin-top: 11px;
+                                                                                                       cursor: pointer;"
+                                                 onclick="DP.util.hideFilter('innerfilter1')">
+                                        </div>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 10px 0 0 10px;
+                                                       margin-right: 0px">
+                                        </select>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 1px;
+                                                       width: 135px;
+                                                       margin-right: 0px;">
+                                            <option value="cnt">Contains</option>
+                                            <option value="dnc">Does not contain</option>
+                                            <option value="is">is</option>
+                                        </select>
+                                        <input name="name" style="width: 140px;" 
+                                               type="text" size="30" 
+                                               value=""> 
+                                    </div> 
+                                    
+                                    <div id='innerfilter2' class="input" style="margin-bottom: 10px;
+                                                                                display: none;">  
+                                        <div style="margin-right: 14px;">
+                                            <img src="img/minus.png" width="20px" height="20px" style="margin-top: 11px;
+                                                                                                       cursor: pointer;"
+                                                 onclick="DP.util.hideFilter('innerfilter2')">
+                                        </div>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 10px 0 0 10px;
+                                                       margin-right: 0px">
+                                        </select>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 1px;
+                                                       width: 135px;
+                                                       margin-right: 0px;">
+                                            <option value="cnt">Contains</option>
+                                            <option value="dnc">Does not contain</option>
+                                            <option value="is">is</option>
+                                        </select>
+                                        <input name="name" style="width: 140px;" 
+                                               type="text" size="30" 
+                                               value=""> 
+                                    </div> 
+                                    
+                                    <div id='innerfilter3' class="input" style="margin-bottom: 10px;
+                                                                                display: none;">  
+                                        <div style="margin-right: 14px;">
+                                            <img src="img/minus.png" width="20px" height="20px" style="margin-top: 11px;
+                                                                                                       cursor: pointer;"
+                                                 onclick="DP.util.hideFilter('innerfilter3')">
+                                        </div>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 10px 0 0 10px;
+                                                       margin-right: 0px">
+                                        </select>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 1px;
+                                                       width: 135px;
+                                                       margin-right: 0px;">
+                                            <option value="cnt">Contains</option>
+                                            <option value="dnc">Does not contain</option>
+                                            <option value="is">is</option>
+                                        </select>
+                                        <input name="name" style="width: 140px;" 
+                                               type="text" size="30" 
+                                               value=""> 
+                                    </div> 
+                                    
+                                    <div id='innerfilter4' class="input" style="margin-bottom: 10px;
+                                                                                display: none;">  
+                                        <div style="margin-right: 14px;">
+                                            <img src="img/minus.png" width="20px" height="20px" style="margin-top: 11px;
+                                                                                                       cursor: pointer;"
+                                                 onclick="DP.util.hideFilter('innerfilter4')">
+                                        </div>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 10px 0 0 10px;
+                                                       margin-right: 0px">
+                                        </select>
+                                        <select class='uniqueselector'
+                                                style="border-radius: 1px;
+                                                       width: 135px;
+                                                       margin-right: 0px;">
+                                            <option value="cnt">Contains</option>
+                                            <option value="dnc">Does not contain</option>
+                                            <option value="is">is</option>
+                                        </select>
+                                        <input name="name" style="width: 140px;" 
+                                               type="text" size="30" 
+                                               value=""> 
+                                    </div>                                     
+                                </div>
+                            </td>
+                        </tr>
+                        <tr style="text-align: -webkit-right;
+                                   height: 90px">
+                            <td>
+                                <div onclick="DP.util.saveChange(true);" class="confirmButton">
+                                    Save
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="nodeProperties" style="display: none; cursor: default;">
+            <div style="text-align: center;"></div>
+            <div style="display: -webkit-inline-box;">
+                <div style="margin-right: 3px;">
+                    <div onmouseup="DP.util.showInfo(true);" 
+                         style="width: 25px;
+                                height: 25px;
+                                background-image: url('img/infoIcon.png');
+                                background-size: cover;
+                                cursor: pointer;">
+                    </div>
+                </div>
+                <div id="button" style="
+                                        width: 25px;
+                                        height: 25px;
+                                        background-image: url('img/tavolozza.png');
+                                        background-size: cover;
+                                        cursor: pointer;
+                                        margin-right: 5px;">
+                    <input id="inputColor" class="color {onImmediateChange:'DP.util.changeNodeColor(this)'}"  value="#0000FF" 
+                           style="opacity: 0;
+                                  width: 25px;
+                                  height: 25px;
+                                  border: none;
+                                  cursor: pointer;">
+                </div>
+                <div style="margin-top: 3px;">
+                    <img id='deleteNode' src="img/delete.png" style="width: 20px;
+                                                                     height: 20px;
+                                                                     cursor: pointer;">                
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            (function() {
+                var po = document.createElement('script');
+                po.type = 'text/javascript';
+                po.async = true;
+                po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(po, s);
+            })();
+            
+            function render() {
+                gapi.signin.render('customBtn', {
+                    'callback': 'signinCallback',
+                    'clientid': '429876947369.apps.googleusercontent.com',
+                    'cookiepolicy': 'single_host_origin',
+                    'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+                    'scope': 'https://www.googleapis.com/auth/plus.login'
+                });
+            }
+            
+            function signinCallback(authResult) {
+                if (authResult['access_token']) {
+                    // Autorizzazione riuscita
+                    // Nascondi il pulsante di accesso ora che l'utente è autorizzato. Ad esempio: 
+                    var button = document.getElementById('customBtn');
+                    if (button)
+                        button.setAttribute('style', 'display: none');
+                    
+                    if (DP.util.activateModule('google+'))
+                        DP.util.addCheckmark(button.parentNode);
+                    
+                } else if (authResult['error']) {
+                    // Si è verificato un errore.
+                    // Possibili codici di errore:
+                    //   "access_denied" - L'utente ha negato l'accesso alla tua app
+                    //   "immediate_failed" - Impossibile eseguire l'accesso automatico dell'utente
+                    // console.log('There was an error: ' + authResult['error']);
+                }
+            }
+        </script>
+    </body>
+</html>

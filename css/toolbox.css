@@ -1,0 +1,120 @@
+/* 
+Document   : toolbox
+Created on : 13-set-2013, 19.51.51
+Author     : Paolo
+Description:
+Purpose of the stylesheet follows.
+
+/*
+
+CSS del menu elementi
+
+*/
+
+.elementContainerClass {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bolder;
+    text-decoration: none;
+    color: #FFF;
+    
+    background: -webkit-linear-gradient(top, #211481, #211482);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);
+    background-clip: padding-box;
+    
+    padding: 20px 20px 16px 20px;
+    min-height: 1px;
+    line-height: 1em;
+    vertical-align: middle;
+    margin-bottom: 1px;
+    z-index: 100000001;
+}
+
+.elementClass {
+    color: #FFF;
+    margin-left: 2px;
+    border-radius: 10px;
+    border-radius: 2em;
+    border-bottom: 1px solid #59636F;
+    box-shadow: inset 0 1px 0 #66707c;
+    z-index: 5;
+    text-align: center;
+    background: -webkit-linear-gradient(top, #211482, #100A36);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.15);    
+}
+
+.lastElementContainerClass {
+    border-radius: 0 0 2em 2em;
+}
+
+/* div contenente la lista */
+#toolsMenu {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: 100%;
+    float: left;
+}
+
+/* lista principale */
+#toolsMenu ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* posizione sub lista */
+#toolsMenu ul ul {
+    position: absolute;
+    top: 0;
+    left: 60%;
+}
+
+/* Contenitore della lista */
+#toolsMenu{
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 0 0 25px 25px;
+    font-weight: 600;
+    width: 160px;
+}
+
+/* menu */
+#toolsMenu ul,
+#toolsMenu li {
+    width: 100%;
+}
+
+/* colore testo elementi menu attivi */
+#toolsMenu li:hover > .elementContainerClass,
+#toolsMenu li.active > .elementContainerClass {
+    color: #c12;
+}
+
+/* larghezza sub lista */
+#toolsMenu ul ul {
+    width: 120px;
+    z-index: 100000000;
+}
+
+/* elementi sub lista */
+#toolsMenu ul ul li {
+    margin-top: 4px;
+    z-index: 2;
+}
+
+#toolsMenu ul ul li:hover > .elementClass {
+    background: -webkit-linear-gradient(bottom, #211482, #100A36);
+    color: gold;
+}
+
+#toolsMenu ul ul a,
+#toolsMenu ul ul a span {
+    font-size: 12px;
+}

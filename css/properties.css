@@ -1,0 +1,178 @@
+
+#propertiesContainer {
+    position: relative;
+    height: 450px;
+    width: 500px;
+    top: 50px;
+    bottom: 50px;
+    border-radius: 20px;
+    margin: auto;
+    background-color: white;
+}
+
+.input_label { 
+    -moz-border-radius: 10px 0 0 10px;
+    -webkit-border-radius: 10px 0 0 10px;
+    background: #EEE;
+    border: 2px solid #CCC;
+    border-radius: 10px 0 0 10px;
+    border-right: 1px solid #FFF;
+    display: inline-block;
+    line-height: 35px;
+    margin-right: 0;
+    width: 80px!important;
+    padding-top: 1px;
+    padding-bottom: 7px;
+}
+
+.properties > table > tbody {
+    text-align: center;
+}
+
+.properties {
+    display: none;
+    height: 100%;
+}
+
+#proptable {
+    width: 100%;
+    height: 100%;
+}
+
+#facebooktable > tbody, #googletable > tbody {
+    margin-top: 100px;
+}
+
+.facebook_rightRadio, .google_rightRadio, .instagram_rightRadio {
+    border-radius: 0 10px 10px 0;
+}
+
+.facebook_leftRadio, .google_leftRadio, .instagram_leftRadio {
+    border-radius: 10px 0 0 10px;
+    margin-left: -22px;
+}
+
+.input input[type=text] { 
+    -moz-border-radius: 0 10px 10px 0; 
+    -webkit-border-radius: 0 10px 10px 0; 
+    background: #FFF; 
+    border: 2px solid #CCC; 
+    border-radius: 0 10px 10px 0; 
+    color: #333; 
+    font: 13px/1.6 'Helvetica Neue' , Arial, 'Liberation Sans' , FreeSans, sans-serif; 
+    height: 38px; 
+    line-height: 24px; 
+    margin: 0px 8px 0px -5px; 
+    outline: none; 
+    padding: 0 3px; 
+    width: 190px; 
+    font-size: 15px;
+    text-align: center;
+} 
+
+label { 
+    display: block; 
+    height: 30px; 
+    line-height: 36px; 
+    font-size: 14px;
+    font-weight: bold;
+} 
+
+
+/*
+ *  Radio button
+ */
+input[type=radio] {
+    display:none;
+}
+
+input[type=radio] + label {
+    font-size: 18px;
+    text-align: center;
+    width: 60px;
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+    color: #333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+    background-image: linear-gradient(to bottom,#fff,#e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    border-bottom-color: #b3b3b3;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+}
+
+input[type=radio]:checked + label {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    background-color:#e0e0e0;
+}
+
+.confirmButton {
+    cursor: pointer;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+    background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+    background-image: linear-gradient(to bottom,#fff,#e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    border-bottom-color: #b3b3b3;
+    border-radius: 10px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    text-indent:0;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777777;
+    font-family:arial;
+    font-size: 14px;
+    font-weight:bold;
+    font-style:normal;
+    height:50px;
+    line-height:50px;
+    width:100px;
+    color: #333;
+    text-align: center;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+    margin-right: 20px;
+}
+
+.confirmButton:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+    background-color:#dfdfdf;
+}
+
+.confirmButton:active {
+    position:relative;
+    top:1px;
+}

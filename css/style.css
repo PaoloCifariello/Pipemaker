@@ -1,0 +1,347 @@
+/* 
+Document   : style
+Created on : 13-set-2013, 11.49.17
+Author     : Paolo
+Description:
+Purpose of the stylesheet follows.
+*/
+
+html, body {
+    font: normal .8em/1.5em Arial, Helvetica, sans-serif;
+    background: #ebebeb;
+    color: #666;
+    overflow: hidden;
+    margin-bottom: 0;
+    margin-top: 0;
+    height: 100%;
+}
+
+/*
+*  stile della barra del titolo
+*  e dei pulsanti 
+*/
+
+.topBar {
+    
+}
+
+.titleBar {
+    height: 20px; 
+    
+}
+
+.inputBar {
+    background: -webkit-linear-gradient(top, #681092, #211481);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    padding: 7px 6px;
+    height: 30px;
+    line-height: 100%;
+    border-radius: 2em 0;
+    content: ".";
+}
+
+.leftButtons {
+    display: -webkit-inline-box;
+    float: left;
+    margin-left: 10px;
+}
+
+.rightButtons {
+    float: right;
+    margin-right: 10px;
+}
+
+/* IMG loading */
+
+.outerLoadingImgContainer {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: table;
+}
+
+.innerLoadingImgContainer {
+    display: table-cell; 
+    vertical-align: middle;
+}
+
+.button {
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    /*border-top: 1px solid #5e5e5e;*/
+    background: -webkit-linear-gradient(top, #211481, #681092);
+    padding: 6px 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    vertical-align: middle;
+    cursor: pointer;
+    margin: 0 5px;
+}
+.button:hover {
+    background: -webkit-linear-gradient(bottom, #211481, #681092);
+}
+.button:active {
+    background: -webkit-linear-gradient(bottom, #211481, #681092);
+    border: 0;
+    margin-right: 8px;
+    margin-left: 4px;
+    margin-top: 2px;
+}
+
+.expandButton {
+    border-radius: 20px 0 0 20px;
+    margin: 0;
+}
+
+.collapseButton {
+    border-radius: 0 20px 20px 0;
+    margin: 0;
+}
+
+.editor {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+
+.tableContent {
+    width: 100%;
+    height: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-top: 4px;
+}
+
+.toolsMenuColumn {
+    width: 160px;
+}
+
+.pipeElement {
+    position: absolute;
+    cursor: move;
+    width: 100px;
+    height: 50px;
+    background: red;
+    left: -1000px;
+    top: -500px;
+    border: 2px;
+    border-radius: 10px;
+    border-color: black;
+    border-style: inset;
+    opacity: 0.4;
+    border: -1px;
+    line-height: 50px;
+    color: black;
+    font-size: 18px;
+    text-align: center;
+}
+
+#pipeEnd {
+    background-color: green;
+}
+
+/*
+.movePart {
+position: absolute;
+cursor: move;
+width: 8px;
+height: 8px;
+background: white;
+border-radius: 10px;
+border: 2px;
+border-style: solid;
+border-color: black;
+left: 43px;
+top: 17.5px;
+}
+*/
+.attach{
+    -webkit-transform: scale(1);
+    position: absolute;
+    cursor: crosshair;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 10px;
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    left: 41px;
+}
+
+.attachInput {
+    top: -10px;
+}
+
+.attachOutput {
+    top: 42px;
+}
+
+
+.facebookobj {
+    background-image: url('../img/fb.png');
+    background-size: contain;
+}
+
+.googleobj {
+    background-image: url('../img/g+.png');
+    background-size: cover;
+    background-position-y: -5px;
+}
+
+.instagramobj {
+    background-image: url('../img/insta.png');
+    background-size: contain;
+    background-position-y: 2px;
+}
+
+.flickrobj {
+    background: blueviolet;
+}
+
+.youtubeobj {
+    background: crimson;
+}
+
+.feedobj {
+    background-image: url('../img/rss.png');
+    background-size: cover;
+    background-position-x: -24px;
+    background-position-y: 0px;
+}
+
+/*
+* Sfondo scuro per quando vengono mostrate le proprieta' di un elemento
+*
+*/
+#blackScreen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100000002;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+#loginPopup {
+    position: relative;
+    height: 380px;
+    width: 410px;
+    top: 100px;
+    margin: auto;
+    background-color: white;
+}
+
+#pipeEditor {
+    overflow: hidden;
+    position: relative;
+    height: 98%;
+    margin-left: 6px;
+    margin-right: 3px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+    border: solid 1px lightgray;
+}
+
+
+#pipeLinks {
+    position: relative;
+    height: 100%; 
+}
+
+.properties {
+    display: none;
+}
+
+/* Selector listbox */
+
+.sortselector, .uniqueselector, .subelementselector {
+    border: 2px solid #CCC;
+    border-radius: 0 10px 10px 0;
+    color: #333;
+    font: 13px/1.6 'Helvetica Neue' , Arial, 'Liberation Sans' , FreeSans, sans-serif;
+    height: 42px;
+    line-height: 24px;
+    margin: 0px 8px 0px -5px;
+    outline: none;
+    padding: 0 3px;
+    background-position: 82px 7px;           /*Position of the background-image*/
+    width: 142px;            /* Width of select dropdown to give space for arrow image*/
+    text-indent: 0.01px;          /* Removes default arrow from firefox*/
+}
+
+.filterselector {
+    border-radius: 10px;
+    width: 71px;
+    height: 26px;
+    margin-bottom: 20px;
+    margin-right: 2px;
+}
+
+.filterinput {
+    margin-bottom: 10px;
+}
+
+#nodeProperties {
+    color: initial;
+    position: absolute; 
+    left: 80px; 
+    bottom: -30px; 
+    width: 88px;
+    height: 42px;
+    margin-left: 8px;
+    font-size: 13px;
+    border: solid 1px lightgray;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+    line-height: initial
+}
+
+#cutImage {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url(../img/cut.png);
+    background-size: cover;
+    cursor: pointer;
+}
+
+#infoMenu {
+    position: absolute;
+    background-color: white;
+    color: black;
+    font-size: 14px;
+    width: 200px;
+    min-height: 30px;
+    z-index: 999999999999;
+    border: 1px solid grey;
+}
+
+#cancelButton {
+    position: absolute;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    right: 8px;
+    top: 5px;
+    background-image: url('../img/cancel.png');
+    background-size: cover;
+}

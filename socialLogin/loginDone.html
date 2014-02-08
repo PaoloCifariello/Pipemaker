@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script>
+            var redirect = 'http://pipemaker.altervista.org/dotPipe/socialLogin/loginDone.html#access_token=';
+            var substr = window.location.href.search(redirect);
+            var key = window.location.href.slice(substr + redirect.length);
+            window.opener.instagramapi.setToken(key);
+        </script>
+
+    </body>
+</html>
