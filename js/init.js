@@ -4,25 +4,6 @@
  */
 
 
-/*
-
-!!!TODO!!!
-
--   Implementare la rimozione di archi
--   Abbellire la UI (mettere scritta Load sul pulsante, barra del titolo, colori barra opzioni,
-    schermata di scelta social, )
-
-!Maybe!
-
----
-
-!!!BUGS!!!
-
----
-
-*/
-
-
 /* 
  * Init script
  * 
