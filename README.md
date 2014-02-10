@@ -6,9 +6,9 @@ Save your pipe and the simply load it and run it again and again!
 
 ### Use it
 
-To use Pipemaker go to:
+To use Pipemaker go to (It works just on Chrome):
 
-	http://pipemaker.altervista.org/dotPipe/
+http://pipemaker.altervista.org/dotPipe/
 	
 	
 ### Credits
