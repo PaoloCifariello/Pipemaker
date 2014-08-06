@@ -18,24 +18,15 @@ var createMenu = (function() {
         
         var listEl, span;
         
-        listEl = document.createElement('li');
-        span = document.createElement('span');
+        listEl = $('<li>', {id: entry.id, class : 'subElement' });
+        span = $('<span>', { class: 'elementContainerClass elementClass'});
         
-        with (listEl) {
-            setAttribute("id", entry.id);
-            setAttribute("class", "subElement");
-        }
+        span.text(entry.name);
         
-        with (span) {
-            className = "elementContainerClass elementClass";
-            innerText = entry.name;
-            
-            if (entry.desc)
-                title = entry.desc;
-        }
+        if (entry.desc)
+            span.attr('title', entry.desc);
         
-        listEl.appendChild(span);
-        
+        listEl.append(span);
         return listEl;
     }
     
@@ -44,17 +35,15 @@ var createMenu = (function() {
      */
     function createSubMenu(elements, parentId) {
         
-        var list = document.createElement('ul');
-        list.setAttribute("id", parentId);
-        
-        list.style.display = "none";
-        list.style.left = "0%";
-        list.style.opacity = "0";
+        var list = $('<ul>', { id: parentId });
+        list.css('display', 'none');
+        list.css('left', '0%');
+        list.css('opacity', '0');
         
         elements.each(function(el){
             if ((el.active) || (el.dependencies && DP.utilvar.activateModules.hasSubArray(el.dependencies))) {
                 var subEntry = createSubMenuEntry(el);
-                list.appendChild(subEntry);
+                list.append(subEntry);
             }   
         });
         
@@ -66,37 +55,26 @@ var createMenu = (function() {
      */
     function createMenuEntry(item, last) {
         
-        var menuEntry = document.createElement('li');
+        var menuEntry = $('<li>', { class: 'elementContainerClass' }),
+            span = $('<span>');
         
-        var span = document.createElement('span');
-        
-        with (span) {
-            className = "elementContainerClass";
-            
-            /*
-             *  se e' l'ultimo elemento aggiungo la classe ultimo elemento
-             *  per i bordi arrotondati 
-             */
-            if (last)
-                className += " lastElementContainerClass";
-            
-            innerText = item.name;
-            
-            //if (item.desc)
-              //  title = item.desc;
-        }
-        
+
+        /*
+         *  se e' l'ultimo elemento aggiungo la classe ultimo elemento
+         *  per i bordi arrotondati 
+         */
+        if (last)
+            menuEntry.attr('class', menuEntry.attr('class') + ' lastElementContainerClass');
+
+        menuEntry.text(item.name);
         
         var subMenu = createSubMenu(item.subs, item.id);
         
-        menuEntry.appendChild(subMenu);
-        menuEntry.appendChild(span);
+        menuEntry.append(subMenu);
+        menuEntry.append(span);
         
         
-        var list = document.getElementById('toolsList');
-        
-        if (list)
-            list.appendChild(menuEntry);
+        $('#toolsList').append(menuEntry);
     }
     
     /* 
@@ -104,17 +82,11 @@ var createMenu = (function() {
      */
     function createMenu() {
         
-        var loginScreen = document.getElementById('blackScreen');
+        $('#blackScreen').remove();
         
-        if (loginScreen)
-            loginScreen.parentNode.removeChild(loginScreen);
-        
-        var lista = document.createElement('ul');
-        lista.id = "toolsList";
-        
-        var container = document.getElementById('toolsMenu');
-        container.appendChild(lista);
-        
+        $('#toolsMenu').append(
+            $('<ul>', {id: 'toolsList'})
+        );
         
         
         with (moduli) {
@@ -132,7 +104,7 @@ var createMenu = (function() {
         /* Setto gli handler per l'editor */
         addEditorEvent();
         
-        document.getElementById('mainTable').style.display = "";
+        $('#mainTable').css('display', '');
         DP.pipeElements.addFinalPipeElement();
     }
     

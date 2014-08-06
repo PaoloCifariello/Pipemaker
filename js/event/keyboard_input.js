@@ -13,6 +13,7 @@
         var bs = document.getElementById('blackScreen'),
             res = ((res = document.getElementById('resultsContainer')) !== undefined) ? (res.style.display !== 'none') : false ; 
         
+        var event = (event || arguments[0]);
         
         function removeEl(){ 
             var cI = document.getElementById('cutImage'),
@@ -77,6 +78,7 @@
     
     function InputSwitch(){
         
+        var event = (event || arguments[0]);
         DP.movingView = false;
         
         switch (event.keyCode)

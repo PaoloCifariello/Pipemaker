@@ -245,7 +245,9 @@
      */
     function pipeElementMouseDownHandler() {
         
-        var info = document.getElementById('infoMenu')
+        var info = document.getElementById('infoMenu'),
+            event = (event || arguments[0]);
+        
         if (info)
             DP.util.removeNode(info);
         
@@ -277,7 +279,8 @@
         document.addEventListener('mouseover', function() {
             
             var menu = document.getElementById('nodeProperties'),
-                info = document.getElementById('infoMenu');
+                info = document.getElementById('infoMenu'),
+                event = (event || arguments[0]);
             
             if (!DP.onMenu && menu.style.display !== 'none' && event.target !== document.getElementById('nodeProperties')
                 && (!jscolor.picker || !document.contains(jscolor.picker.boxB))) {
@@ -300,11 +303,13 @@
         }, false);
         
         document.getElementById('nodeProperties').addEventListener('mouseover', function(){            
+            var event = (event || arguments[0]);
             DP.onMenu = true;
             event.stopPropagation();
         }, true);
         
-        document.getElementById('nodeProperties').addEventListener('mouseout', function(){            
+        document.getElementById('nodeProperties').addEventListener('mouseout', function(){   
+            var event = (event || arguments[0]);
             DP.onMenu = false;
             event.stopPropagation();
         }, true);
@@ -318,7 +323,8 @@
         
         var sel = DP.subMenu.elements,
             tM = document.getElementById('toolsList'),
-            cI = document.getElementById('cutImage');
+            cI = document.getElementById('cutImage'),
+            event = (event || arguments[0]);
         
         if (tM && event.target !== tM && !tM.contains(event.target))
             for (var i = 0; i < sel.length; i++)
@@ -393,6 +399,8 @@
      */
     function pipeElementMouseUpHandler() {
         
+        var event = (event || arguments[0]);
+        
         if (DP.elementToMove !== undefined) {
             DP.elementToMove.element.style.opacity = "1";
             
@@ -423,7 +431,8 @@
         
         var current = DP.pipeElements.getPipeElement(this.id),
             menu = document.getElementById('nodeProperties'),
-            inputColor = document.getElementById('inputColor')
+            inputColor = document.getElementById('inputColor'),
+            event = (event || arguments[0]);
         
         if (current === DP.selectedElement){
             event.stopPropagation();

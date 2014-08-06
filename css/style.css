@@ -32,6 +32,9 @@ html, body {
 
 .inputBar {
     background: -webkit-linear-gradient(top, #681092, #211481);
+    background: -moz-linear-gradient(top, #681092, #211481);
+    background: -o-linear-gradient(top, #681092, #211481);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     padding: 7px 6px;
     height: 30px;
@@ -42,6 +45,7 @@ html, body {
 
 .leftButtons {
     display: -webkit-inline-box;
+    display: inline-box;
     float: left;
     margin-left: 10px;
 }
@@ -70,6 +74,9 @@ html, body {
     border-bottom: 2px solid;
     /*border-top: 1px solid #5e5e5e;*/
     background: -webkit-linear-gradient(top, #211481, #681092);
+    background: -moz-linear-gradient(top, #211481, #681092);
+    background: -o-linear-gradient(top, #211481, #681092);
+    background: linear-gradient(top, #211481, #681092);
     padding: 6px 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -90,10 +97,16 @@ html, body {
     margin: 0 5px;
 }
 .button:hover {
+    background: -moz-linear-gradient(bottom, #211481, #681092);
+    background: -o-linear-gradient(bottom, #211481, #681092);
     background: -webkit-linear-gradient(bottom, #211481, #681092);
+    background: linear-gradient(bottom, #211481, #681092);
 }
 .button:active {
     background: -webkit-linear-gradient(bottom, #211481, #681092);
+    background: -moz-linear-gradient(bottom, #211481, #681092);
+    background: -o-linear-gradient(bottom, #211481, #681092);
+    background: linear-gradient(bottom, #211481, #681092);
     border: 0;
     margin-right: 8px;
     margin-left: 4px;
@@ -153,22 +166,8 @@ html, body {
     background-color: green;
 }
 
-/*
-.movePart {
-position: absolute;
-cursor: move;
-width: 8px;
-height: 8px;
-background: white;
-border-radius: 10px;
-border: 2px;
-border-style: solid;
-border-color: black;
-left: 43px;
-top: 17.5px;
-}
-*/
 .attach{
+    transform: scale(1);
     -webkit-transform: scale(1);
     position: absolute;
     cursor: crosshair;

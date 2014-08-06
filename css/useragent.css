@@ -1,0 +1,70 @@
+html {
+    display: block;
+}
+
+body {
+    display: block;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+div {
+    display: block;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+ol ul, ul ol, ul ul, ol ol {
+    margin-before: 0px;
+    margin-after: 0px;
+}
+
+ul, menu, dir {
+    margin-start: 0px;
+    margin-end: 0px;
+    padding-start: 40px;
+}
+
+li {
+    text-align: match-parent;
+}
+
+iframe {
+    border: 2px inset;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}

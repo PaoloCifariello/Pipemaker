@@ -52,6 +52,7 @@ span.buttonText {
 .instagramLogin {
     color: #FFF;
     width: 128px;
+    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 3px, rgba(255, 255, 255, 0.0470588) 1px 0px 0px inset, rgba(255, 255, 255, 0.0470588) -1px 0px 0px inset, rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset;
     -webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 3px, rgba(255, 255, 255, 0.0470588) 1px 0px 0px inset, rgba(255, 255, 255, 0.0470588) -1px 0px 0px inset, rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset;
     font-size: 16px;
     text-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 0px;
@@ -60,12 +61,15 @@ span.buttonText {
     background-image: -webkit-linear-gradient(top, #6f97b6, #3f729b);
     background-position: 50% 50%;
     cursor: pointer;
+    border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
     font-weight: bold;
     line-height: 1em;
     text-decoration: none;
+    tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    user-select: none;
     -webkit-user-select: none;
     display: inline-block;
 }

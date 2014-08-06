@@ -32,14 +32,16 @@ var setHandlerMenu = (function() {
      */
     function setHandlerMenu() {
 
-        var menu = document.getElementById('toolsList');
-        var childs = menu.childNodes;
+        var menu = $('#toolsList');
+        var childs = menu.children();
 
         for (var i = 0; i < childs.length; i++) {
-            DP.subMenu.add(childs[i].firstChild, i);
+            
+            DP.subMenu.add(childs[i].firstElementChild, i);
 
             childs[i].addEventListener('mouseover', function(index) {
                 return function() {
+                    var event = (event || arguments[0]);
                     /* 
                      * Se non sono sotto al menu'
                      * per essere sicuri che l'evento non sia stato scatenato da un sotto menu
@@ -51,8 +53,7 @@ var setHandlerMenu = (function() {
                 };
 
             }(i), true);
-        }   
-        
+        }           
     }
 
     return setHandlerMenu;

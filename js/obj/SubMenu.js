@@ -24,8 +24,7 @@
          */
         if (typeof this.isIn !== "function") {
             SubMenuEntry.prototype.isIn = function(x, y) {
-                
-                if (this.node.style.display !== 'none') {
+                if ($(this.node).css('display') !== 'none') {
                     
                     if (!(this.left) || !(this.top)) {
                         var margin = DP.util.getPosition(this.node);
