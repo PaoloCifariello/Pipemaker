@@ -5,33 +5,33 @@
 
 (function(){
     
-    document.body.addEventListener('keyup', InputSwitch);
-    document.body.addEventListener('keydown', moveViewSwitch);
+    $(document.body).keyup(InputSwitch);
+    $(document.body).keydown(moveViewSwitch);
     
     function moveViewSwitch() {
         
         var bs = document.getElementById('blackScreen'),
-            res = ((res = document.getElementById('resultsContainer')) !== undefined) ? (res.style.display !== 'none') : false ; 
+            res = ((res = $('#resultsContainer')).length) ? (res.css('display') !== 'none') : false ; 
         
         var event = (event || arguments[0]);
         
         function removeEl(){ 
-            var cI = document.getElementById('cutImage'),
-                nP = document.getElementById('nodeProperties'),
-                iM = document.getElementById('infoMenu');
+            var cI = $('#cutImage'),
+                nP = $('#nodeProperties'),
+                iM = $('#infoMenu');
             
             if (nP) { 
-                nP.style.display = 'none';
-                DP.util.removeNode(nP);
-                document.body.appendChild(nP);
+                nP.css('display', 'none');
+                nP.remove();
+                $(document.body).append(nP);
                 DP.selectedElement = undefined;
             }
             
             if (iM)
-                DP.util.removeNode(iM);
+                iM.remove();
             
             if (cI)
-                DP.util.removeNode(cI);
+                cI.remove();
             
         }
         
@@ -96,8 +96,7 @@
      * Handler per quando viene premmuto 'esc'
      */
     function escape(){
-        var shower = document.getElementById('showerProperties');
-        DP.util.removeNode(shower);
+        $('#showerProperties').remove();
     }
     
 })();

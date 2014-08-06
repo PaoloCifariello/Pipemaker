@@ -44,8 +44,7 @@ html, body {
 }
 
 .leftButtons {
-    display: -webkit-inline-box;
-    display: inline-box;
+    display: flex;
     float: left;
     margin-left: 10px;
 }
@@ -262,6 +261,7 @@ html, body {
 #pipeLinks {
     position: relative;
     height: 100%; 
+    width: 100%;
 }
 
 .properties {

@@ -55,8 +55,8 @@ var createMenu = (function() {
      */
     function createMenuEntry(item, last) {
         
-        var menuEntry = $('<li>', { class: 'elementContainerClass' }),
-            span = $('<span>');
+        var menuEntry = $('<li>'),
+            span = $('<span>', { class: 'elementContainerClass' });
         
 
         /*
@@ -64,9 +64,9 @@ var createMenu = (function() {
          *  per i bordi arrotondati 
          */
         if (last)
-            menuEntry.attr('class', menuEntry.attr('class') + ' lastElementContainerClass');
+            span.attr('class', span.attr('class') + ' lastElementContainerClass');
 
-        menuEntry.text(item.name);
+        span.text(item.name);
         
         var subMenu = createSubMenu(item.subs, item.id);
         

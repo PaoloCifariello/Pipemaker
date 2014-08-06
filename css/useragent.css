@@ -33,7 +33,7 @@ tr {
 
 td, th {
     display: table-cell;
-    vertical-align: inherit;
+    vertical-align: top;
 }
 
 div {
